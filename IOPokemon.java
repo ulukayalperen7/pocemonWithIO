@@ -1,6 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class IOPokemon {
     public static void main(String[] args) {
 
+    }
+
+    public static void intLogger(String filename) {
+        try (Scanner scanner = new Scanner(System.in);
+                PrintWriter writer = new PrintWriter(new File(filename))) {
+
+            System.out.println("Enter the integers:");
+            while (true) {
+                try {
+                    int input = scanner.nextInt();
+                    if (input == 0) {
+                        writer.println(input);
+                        System.out.println("Exiting...");
+                        break;
+                    }
+                    writer.println(input);
+
+                } catch (InputMismatchException e) {
+                    System.out.println("non-integer-"
+                            + "input");
+                    writer.println("non-integer-"
+                            + "input");
+                    scanner.next();
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not "
+                    + "found - " + e.getMessage());
+        }
     }
 
     public static void swap(int[] array, int i, int j) {
